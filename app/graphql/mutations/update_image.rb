@@ -29,7 +29,7 @@ module Mutations
             raise GraphQL::ExecutionError, 'ERROR: Not owner of image'
           end
         else
-          raise GraphQL::ExecutionError, "ERROR: Image with id #{id} does not exist"
+          raise GraphQL::ExecutionError, "ERROR: Does not exist"
         end
       end
     end

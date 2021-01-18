@@ -9,21 +9,20 @@ module Mutations
       def resolve(id:)
         authorized_user
   
-        image = Image.find(id)
+        image = Image.find_by(id: id)
   
         if image.present?
           if image.user == context[:current_user]
-  
-            image.destroy!
-  
-            raise GraphQL::ExecutionError, image.errors.full_messages.join(', ') unless image.errors.empty?
-  
-            image
+            image.destroy
+            {
+              image: image,
+              errors: []
+            }
           else
-            raise GraphQL::ExecutionError, 'ERROR: Current User is not the creator of this Image'
+            raise GraphQL::ExecutionError, 'ERROR: User is not the owner of this Image'
           end
         else
-          raise GraphQL::ExecutionError, "ERROR: Image with id #{id} does not exist"
+          raise GraphQL::ExecutionError, "ERROR: Does not exist"
         end
       end
     end

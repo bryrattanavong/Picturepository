@@ -5,8 +5,8 @@ class User < ApplicationRecord
     validates :balance, presence: true
     validates :email, presence: true, uniqueness: true
   
-    has_many :images
-    has_many :purchases
+    has_many :images, dependent: :destroy
+    has_many :purchases, dependent: :destroy
   
     def image_count
       Rails.cache.fetch([cache_key, __method__]) do

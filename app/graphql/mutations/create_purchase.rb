@@ -7,10 +7,18 @@ module Mutations
       def resolve(id:)
         authorized_user
 
-        image = Image.find(id)
-        return GraphQL::ExecutionError.new('ERROR: Requested Image is either private or does not exist') if image.nil? || image.private
-        return GraphQL::ExecutionError.new('ERROR: User cannot purchase own Image') if context[:current_user] == image.user
-        return GraphQL::ExecutionError.new('ERROR: User cannot afford this purchase') if context[:current_user].balance < image.price
+        image = Image.find_by(id: id)
+        if image.nil? || image.private
+          return GraphQL::ExecutionError.new('ERROR: Requested Image is either private or does not exist')
+        end
+
+        if context[:current_user] == image.user
+          return GraphQL::ExecutionError.new('ERROR: User cannot purchase own Image')
+        end
+        
+        if context[:current_user].balance < image.price
+          return GraphQL::ExecutionError.new('ERROR: User cannot afford this purchase') 
+        end
 
         ActiveRecord::Base.transaction do
           purchase = ::Purchase.create!(
@@ -24,14 +32,14 @@ module Mutations
           purchase.image.attach(image.image.attachment.blob)
           purchase.save
 
-          user.update!(balance: user.balance - image.price)
+          context[:current_user].update!(balance: context[:current_user].balance - image.price)
           image.user.update!(balance: image.user.balance + image.price)
         end
 
-        'Succesfully purchased image.'
+        'Purchased complete.'
 
       rescue ActiveRecord::RecordInvalid
-        GraphQL::ExecutionError.new('ERROR: Invalid operation. Transaction was not successfully completed')
+        GraphQL::ExecutionError.new('ERROR: Purchase incomplete')
       end
     end
 end

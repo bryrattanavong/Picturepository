@@ -5,10 +5,10 @@ module Queries
   
       def resolve(id:)
         user = context[:current_user]
-        return GraphQL::ExecutionError.new('ERROR: Not logged in or missing token') if user.nil?
+        return GraphQL::ExecutionError.new('ERROR: User not connected') if user.nil?
   
         purchase = Purchase.find(id)
-        return GraphQL::ExecutionError.new('ERROR: Purchase of given ID is nil') if purchase.nil? || purchase.user != user
+        return GraphQL::ExecutionError.new('ERROR: Unavailable ID') if purchase.nil? || purchase.user != user
   
         purchase
       end

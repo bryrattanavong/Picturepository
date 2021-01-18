@@ -9,7 +9,8 @@ A GraphQL API for Shopify's backend challenge. A image repository where you are 
 - Run `bundle install` to install all gems from the `Gemfile`
 - Run `rails db:drop` then `rails db:create` then `rails db:migrate` to create the database tables
 - To start the server run the command `rails s`
-- Access the server on `localhost:3000` and `localhost:3000/graphiql` to find the GraphiQL interface
+- Access the server on `localhost:4000` and `localhost:4000/graphiql` to find the GraphiQL interface
+- Once signing up and signing in to make API commands you must have your given JWT in the Authentification header.
 
 ## Data models
 - image
@@ -50,4 +51,8 @@ A GraphQL API for Shopify's backend challenge. A image repository where you are 
 - `purchase`
     - Allows a user to get a specific purchase based on user ID
 
+## Technologies used
+- `Ruby on rails`
+- `Graphql`
+- `Redis`
 
