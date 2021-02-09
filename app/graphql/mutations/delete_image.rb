@@ -1,4 +1,3 @@
-
 module Mutations
     class DeleteImage < BaseMutation
         argument :id, ID, required: true

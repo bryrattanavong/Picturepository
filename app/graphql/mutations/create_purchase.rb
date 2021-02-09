@@ -7,7 +7,7 @@ module Mutations
       def resolve(id:)
         authorized_user
 
-        image = Image.find_by(id: id)
+        image = ::Image.find_by(id: id)
         if image.nil? || image.private
           return GraphQL::ExecutionError.new('ERROR: Requested Image is either private or does not exist')
         end
@@ -29,11 +29,12 @@ module Mutations
             cost: image.price
           )
 
-          purchase.image.attach(image.image.attachment.blob)
+          purchase.attached_image.attach(image.attached_image.attachment.blob)
           purchase.save
 
           context[:current_user].update!(balance: context[:current_user].balance - image.price)
           image.user.update!(balance: image.user.balance + image.price)
+          image.update!(user_id: context[:current_user].id)
         end
 
         'Purchased complete.'

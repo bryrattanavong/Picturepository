@@ -5,7 +5,7 @@ module Queries
    type Types::ImageType, null: false
  
    def resolve(id:)
-     image = Image.find_by(id: id)
+     image = ::Image.find_by(id: id)
      if image.present?
        image
      else 

@@ -18,6 +18,13 @@ gem 'graphql'
 gem 'apollo_upload_server', '2.0.1'
 gem 'jwt'
 gem 'search_object_graphql'
+gem 'graphql-pagination'
+gem 'kaminari-activerecord'
+gem 'identity_cache'
+gem 'cityhash'        # optional, for faster hashing (C-Ruby only)
+gem 'redis-activesupport-with-cas'
+
+gem 'dalli' # To use :mem_cache_store
 
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.13'

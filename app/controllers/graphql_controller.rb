@@ -39,13 +39,13 @@ class GraphqlController < ApplicationController
 
   private
 
-  def current_user
-    header = request.headers[:token] 
-    decrypted = JWT.decode(header,Rails.application.secrets.secret_key_base.byteslice(0..31))[0] 
-    currentUser = User.find_by(id: decrypted['id']) 
-    { current_user: currentUser, token: header }
-    rescue JWT::DecodeError
-      nil  
+ def current_user
+    header = request.headers[:Authentication]
+    decrypted = JWT.decode(header, Rails.application.secrets.secret_key_base.byteslice(0..31))[0] # decrypt token using secret key
+    user = User.find_by(id: decrypted['id']) # find the user given the decrypted id
+    user
+  rescue JWT::DecodeError
+    nil
   end
 
   # Handle form data, JSON body, or a blank value

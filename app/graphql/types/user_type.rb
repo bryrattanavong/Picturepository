@@ -8,12 +8,4 @@ module Types
     field :images, [Types::ImageType], null: false
     field :purchases, [Types::PurchaseType], null: false
   end
-
-  def images
-    Loaders::HasManyLoader.for(Image, :images).load(object)
-  end
-
-  def purchases
-    Loaders::HasManyLoader.for(Purchase, :purchases).load(object)
-  end
 end

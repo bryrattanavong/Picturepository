@@ -22,7 +22,15 @@ Rails.application.configure do
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
-  config.cache_store = :null_store
+  config.cache_store = :redis_store, {
+    host: 'localhost',
+    port: 6379,
+    db: 0,
+    namespace: 'cache',
+  }, {
+    expires_in: 90.minutes,
+  }
+  IdentityCache.cache_backend = ActiveSupport::Cache.lookup_store(*Rails.configuration.cache_store)
 
   # Raise exceptions instead of rendering exception templates.
   config.action_dispatch.show_exceptions = false

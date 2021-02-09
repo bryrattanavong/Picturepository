@@ -4,7 +4,7 @@ module Queries
       type Types::UserType, null: false
   
       def resolve(id:)
-        user = User.find_by(id: id)
+        user = ::User.fetch(id)
         if user.present?
           user
         else 

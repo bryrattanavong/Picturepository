@@ -6,6 +6,6 @@ module Types
     field :create_image, mutation: Mutations::CreateImage, description: 'Create a image'
     field :delete_image, mutation: Mutations::DeleteImage, description: 'Delete a image'
     field :update_image, mutation: Mutations::UpdateImage, description: 'Updates a image'
-    field :create_purchase, mutation: Mutations::CreatePurchase, description: 'Creates a purchase '
+    field :create_purchase, mutation: Mutations::CreatePurchase, description: 'Creates a purchase'
   end
 end

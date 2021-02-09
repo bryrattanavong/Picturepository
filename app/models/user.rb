@@ -1,5 +1,6 @@
 class User < ApplicationRecord
     has_secure_password
+    include IdentityCache
   
     validates :name, presence: true
     validates :balance, presence: true

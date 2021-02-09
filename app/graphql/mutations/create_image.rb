@@ -8,14 +8,14 @@ module Mutations
   
     type Types::ImageType
 
-    def resolve(image:, description: nil, people: nil)
+    def resolve(title:, price:, private:, image:, description: )
       authorized_user
-      image = Image.create!(
+      image = ::Image.create!(
         title: title,
         description: description,
         price: price,
         private: private,
-        image: image,
+        attached_image: image,
         user_id: context[:current_user].id
       )
       raise GraphQL::ExecutionError, image.errors.full_messages.join(", ") unless image.errors.empty?
