@@ -19,7 +19,7 @@ module Mutations
         raise GraphQL::ExecutionError, context[:current_user].errors.full_messages.join(', ') unless context[:current_user].errors.empty?
         context[:current_user]
       rescue ActiveRecord::RecordInvalid
-        GraphQL::ExecutionError.new('ERROR: Username or email is taken')
+        GraphQL::ExecutionError.new('Error: Email is taken')
       end
     end
 end

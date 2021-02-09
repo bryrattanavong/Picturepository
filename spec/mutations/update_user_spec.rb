@@ -23,9 +23,29 @@ RSpec.describe('Update Image') do
         context: {current_user: @user},
         variables: vars
       )
-      byebug
     
       expect(result['data']['updateUser']['name']).to(eq('Tester'))
     end
+    it 'unsuccesfuly update an image ' do
+      
+        query = <<~GRAPHQL
+          mutation updateUser( $email: String!) {
+            updateUser( email: $email){
+                email
+            }
+          }
+          GRAPHQL
+  
+        vars = {
+          email: 'tester@email.com',
+        }
+        result =  ImageexplorerapiSchema.execute(
+          query,
+          context: {current_user: @user},
+          variables: vars
+        )
+      
+        expect(result['errors'][0]['message']).to(eq('Error: Email is taken'))
+      end
   end
 end
