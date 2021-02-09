@@ -10,7 +10,7 @@ module Mutations
     def resolve(email: nil, password: nil)
       
       unless user = User.find_by(email:email)
-        return GraphQL::ExecutionError.new("error: no user with that email.");
+        return GraphQL::ExecutionError.new("Error: no user with that email.");
       end
 
       return unless user.authenticate(password)

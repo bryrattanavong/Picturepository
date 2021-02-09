@@ -1,6 +1,6 @@
 module Mutations
     class DeleteImage < BaseMutation
-        argument :id, ID, required: true
+        argument :id, Int, required: true
 
         field :image, Types::ImageType, null: false
         field :errors, [String], null: false

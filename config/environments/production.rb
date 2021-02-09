@@ -3,7 +3,7 @@ Rails.application.configure do
 
   # Code is not reloaded between requests.
   config.cache_classes = true
-  config.cache_store = :redis_store, "redis://localhost:6379/0/cache", { expires_in: 90.minutes }
+  config.cache_store = :redis_store_with_cas, "redis://localhost:6379/0/cache", { expires_in: 90.minutes }
   IdentityCache.cache_backend = ActiveSupport::Cache.lookup_store(*Rails.configuration.cache_store)
 
   # Eager load code on boot. This eager loads most of Rails and
