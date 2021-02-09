@@ -36,21 +36,6 @@ ActiveRecord::Schema.define(version: 2021_02_09_021102) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "hash_tags", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "image_hash_tags", force: :cascade do |t|
-    t.bigint "image_id"
-    t.bigint "hash_tag_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["hash_tag_id"], name: "index_image_hash_tags_on_hash_tag_id"
-    t.index ["image_id"], name: "index_image_hash_tags_on_image_id"
-  end
-
   create_table "images", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.text "description"

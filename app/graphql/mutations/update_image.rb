@@ -24,8 +24,6 @@ module Mutations
             photo.attached_image = image if image.present?
             photo.save
             
-            byebug
-
             raise GraphQL::ExecutionError, photo.errors.full_messages.join(', ') unless photo.errors.empty?
 
             photo

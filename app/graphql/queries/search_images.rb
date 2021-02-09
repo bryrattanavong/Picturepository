@@ -12,7 +12,6 @@ module Queries
         class ImageFilter < ::Types::BaseInputObject
             argument :title_contains, String, required: false
             argument :description_contains, String, required: false
-            argument :hashtag_contains, String, required: false
         end
         
         option :filter, type: ImageFilter, with: :apply_filter
@@ -36,7 +35,6 @@ module Queries
             scope = ::Image.where(private: false)
             scope = scope.where('title LIKE ?', "%#{value[:title_contains]}%") if value[:title_contains]
             scope = scope.where('description LIKE ?', "%#{value[:description_contains]}%") if value[:description_contains]
-            scope = scope.joins(:hash_tags).where(hash_tags:{name: value[:hashtag_contains] }) if value[:hashtag_contains]
             scope
         end
     end
