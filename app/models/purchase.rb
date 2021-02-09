@@ -1,5 +1,6 @@
 include Rails.application.routes.url_helpers
 class Purchase < ApplicationRecord
+    include IdentityCache
     validates :title, presence: true
     validates :cost, presence: true
   

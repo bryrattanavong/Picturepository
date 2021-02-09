@@ -7,7 +7,7 @@ module Queries
         user = context[:current_user]
         return GraphQL::ExecutionError.new('ERROR: User not connected') if user.nil?
   
-        purchase = ::Purchase.find_by(id: id)
+        purchase = ::Purchase.fetch(id)
         return GraphQL::ExecutionError.new('ERROR: Unavailable ID') if purchase.nil? || purchase.user != user
   
         purchase
