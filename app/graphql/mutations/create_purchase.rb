@@ -1,10 +1,11 @@
 module Mutations
     class CreatePurchase < BaseMutation
       argument :id, ID, required: true
+      argument :discount, Float, required: false
 
-      type String
+      type Types::PurchaseType
 
-      def resolve(id:)
+      def resolve(id:, discount:nil)
         authorized_user
 
         image = ::Image.find_by(id: id)
@@ -21,23 +22,38 @@ module Mutations
         end
 
         ActiveRecord::Base.transaction do
+          if discount.present?
+            if discount < 0
+              return GraphQL::ExecutionError.new('ERROR: discount cant be less than 0') 
+            end
+            
+            if discount > 100
+              return GraphQL::ExecutionError.new('ERROR: discount cant be greater than 100') 
+            end
+            discountPrice = image.price - (image.price * (discount/100))
+            context[:current_user].update!(balance: context[:current_user].balance - discountPrice)
+            image.user.update!(balance: image.user.balance + discountPrice)
+          else
+            context[:current_user].update!(balance: context[:current_user].balance - image.price)
+            image.user.update!(balance: image.user.balance + image.price)
+          end
+
           purchase = ::Purchase.create!(
             title: image.title,
             description: image.description,
             user_id: context[:current_user].id,
             seller_id: image.user.id,
-            cost: image.price
+            cost: image.price,
+            discount: discount
           )
-
+          image.update!(user_id: context[:current_user].id)
+          
           purchase.attached_image.attach(image.attached_image.attachment.blob)
           purchase.save
 
-          context[:current_user].update!(balance: context[:current_user].balance - image.price)
-          image.user.update!(balance: image.user.balance + image.price)
-          image.update!(user_id: context[:current_user].id)
+          purchase
         end
 
-        'Purchased complete.'
 
       rescue ActiveRecord::RecordInvalid
         GraphQL::ExecutionError.new('ERROR: Purchase incomplete')
