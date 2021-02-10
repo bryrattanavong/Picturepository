@@ -39,17 +39,17 @@ A GraphQL API for Shopify's backend challenge. A image repository where you are 
 - `search_images`
     - Allows a user to search for an images. Pagination can be done by adding any of these`first:Int`, `last:Int`, `after:String`, `before:String` to the parameters
 - `images`
-    - Allows a user to get all images. Pagination can be done by adding any of these`first:Int`, `last:Int`, `after:String`, `before:String` to the parameters
+    - Allows a user to get all public images. Pagination can be done by adding any of these`first:Int`, `last:Int`, `after:String`, `before:String` to the parameters
 - `image`
     - Allows a user to get a specific image based on ID.
-- `hash_tag`
-    - Allows a user to get all hashtags. Pagination can be done by adding any of these`first:Int`, `last:Int`, `after:String`, `before:String` to the parameters
 - `users`
     - Allows a user to get all users. Pagination can be done by adding any of these`first:Int`, `last:Int`, `after:String`, `before:String` to the parameters
 - `user`
     - Allows a user to get a specific user based on user ID
 - `purchase`
     - Allows a user to get a specific purchase based on user ID
+- `purchases`
+    Allows a user to get all purchases. Pagination can be done by adding any of these`first:Int`, `last:Int`, `after:String`, `before:String` to the parameters
 
 ## Technologies used
 - `Ruby on rails`
