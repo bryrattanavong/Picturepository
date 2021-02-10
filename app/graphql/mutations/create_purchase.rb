@@ -30,13 +30,12 @@ module Mutations
             if discount > 100
               return GraphQL::ExecutionError.new('ERROR: discount cant be greater than 100') 
             end
-            discountPrice = image.price - (image.price * (discount/100))
-            context[:current_user].update!(balance: context[:current_user].balance - discountPrice)
-            image.user.update!(balance: image.user.balance + discountPrice)
+            calculatePrice = image.price - (image.price * (discount/100))
           else
-            context[:current_user].update!(balance: context[:current_user].balance - image.price)
-            image.user.update!(balance: image.user.balance + image.price)
+            calculatePrice = image.price
           end
+          context[:current_user].update!(balance: context[:current_user].balance - calculatePrice)
+          image.user.update!(balance: image.user.balance + calculatePrice)
 
           purchase = ::Purchase.create!(
             title: image.title,
