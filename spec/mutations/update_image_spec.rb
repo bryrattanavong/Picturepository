@@ -1,8 +1,8 @@
 require 'rails_helper'
 RSpec.describe('Update Image') do
     before do
-        @user = create(:user, email: 'user@email.com', name: 'something', password: '1234', balance:1230.00)
-        @tester = create(:user, email: 'tester@email.com', name: 'something', password: '1234', balance:1230.00)
+        @user = create(:user, email: 'user@email.com', name: 'user', password: '1234', balance:1230.00)
+        @tester = create(:user, email: 'tester@email.com', name: 'tester', password: '1234', balance:1230.00)
     end
   describe Mutations::UpdateImage do
     it 'Update an image ' do

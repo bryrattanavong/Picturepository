@@ -1,9 +1,9 @@
 require 'rails_helper'
 RSpec.describe('Create purchase') do
     before do
-        @user = create(:user, email: 'tester@email.com', name: 'something', password: '1234', balance:1230.00)
-        @newuser = create(:user, email: 'tester1@email.com', name: 'something', password: '1234', balance:1230.00)
-        @tester = create(:user, email: 'tester2@email.com', name: 'something', password: '1234', balance:10.00)
+        @user = create(:user, email: 'tester@email.com', name: 'billy', password: '1234', balance:1230.00)
+        @newuser = create(:user, email: 'tester1@email.com', name: 'kenny', password: '1234', balance:1230.00)
+        @tester = create(:user, email: 'tester2@email.com', name: 'jenny', password: '1234', balance:10.00)
     end
   describe Mutations::CreatePurchase do
     it 'Create a purchase successfully' do

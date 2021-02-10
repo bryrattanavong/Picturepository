@@ -1,7 +1,7 @@
 require 'rails_helper'
 RSpec.describe('Create Image') do
     before do
-        @user = create(:user, email: 'user@email.com', name: 'something', password: '1234', balance:1230.00)
+        @user = create(:user, email: 'user@email.com', name: 'billy', password: '1234', balance:1230.00)
     end
   describe Mutations::CreateImage do
     it 'create an image successfully' do
