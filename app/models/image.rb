@@ -3,6 +3,7 @@ class Image < ApplicationRecord
   include IdentityCache
 
   belongs_to :user
+  cache_belongs_to :user
   has_one_attached :attached_image
 
   validates :title, presence: true

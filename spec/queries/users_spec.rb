@@ -30,8 +30,8 @@ RSpec.describe('user queries') do
     it 'Query multiple User' do
 
         query = <<~GRAPHQL
-          query users($page: Int!, $limit: Int!) {
-            users(page: $page, limit:$limit){
+          query users($first: Int!) {
+            users(first:$first){
                 nodes{
                     id
                 }
@@ -40,8 +40,7 @@ RSpec.describe('user queries') do
           GRAPHQL
   
         vars = {
-          page: 1,
-          limit: 2
+          first: 2
         }
         result =  ImageexplorerapiSchema.execute(
           query,

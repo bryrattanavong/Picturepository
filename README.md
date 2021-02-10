@@ -56,3 +56,7 @@ A GraphQL API for Shopify's backend challenge. A image repository where you are 
 - `Graphql`
 - `Redis`
 
+## Testing
+- `rspec`
+    - Testing was done using rspec to run do `bundle exec rspec`
+

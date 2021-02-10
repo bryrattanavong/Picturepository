@@ -34,8 +34,8 @@ RSpec.describe('Image queries') do
         image3 = create(:image, title: "hello", description:"test", price:12.00, private: true, user_id: @user.id)
   
         query = <<~GRAPHQL
-          query images($page: Int!, $limit: Int!) {
-            images(page: $page, limit: $limit){
+          query images($first: Int!) {
+            images(first: $first){
                 nodes{
                     id
                 }
@@ -44,8 +44,7 @@ RSpec.describe('Image queries') do
           GRAPHQL
   
         vars = {
-          page: 1,
-          limit:3,
+          first:3,
         }
         result =  ImageexplorerapiSchema.execute(
           query,

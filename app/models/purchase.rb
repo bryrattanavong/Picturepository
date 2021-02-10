@@ -5,6 +5,7 @@ class Purchase < ApplicationRecord
     validates :cost, presence: true
   
     belongs_to :user
+    cache_belongs_to :user
     belongs_to :seller, class_name: 'User', foreign_key: 'seller_id', required: false
   
     has_one_attached :attached_image

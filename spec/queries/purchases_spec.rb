@@ -35,8 +35,8 @@ RSpec.describe('Purchase queries') do
       purchase2 = create(:purchase,id:@image2.id, title:"testing",description:"test", cost:12.00,user_id: @user.id, seller_id: @user2.id)
 
       query = <<~GRAPHQL
-        query purchases($page: Int!, $limit: Int!) {
-          purchases(page: $page, limit: $limit){
+        query purchases($first: Int!) {
+          purchases(first: $first){
               nodes{
                 id
               }
@@ -45,8 +45,7 @@ RSpec.describe('Purchase queries') do
         GRAPHQL
 
       vars = {
-        page: 1,
-        limit:2,
+        first: 2,
       }
 
       result =  ImageexplorerapiSchema.execute(

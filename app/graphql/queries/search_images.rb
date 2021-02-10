@@ -15,20 +15,10 @@ module Queries
         end
         
         option :filter, type: ImageFilter, with: :apply_filter
-        option :limit, type: types.Int, with: :apply_limit
-        option :skip, type: types.Int, with: :apply_offset
 
         def apply_filter(scope, value)
             branches = normalize_filters(value)
             branches
-        end
-
-        def apply_limit(scope, value)
-            scope.limit(value)
-        end
-          
-        def apply_offset(scope, value)
-            scope.offset(value)
         end
 
         def normalize_filters(value, branches = [])

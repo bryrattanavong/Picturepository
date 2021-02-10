@@ -7,7 +7,9 @@ class User < ApplicationRecord
     validates :email, presence: true, uniqueness: true
   
     has_many :images, dependent: :destroy
+    cache_has_many :images, embed: true
     has_many :purchases, dependent: :destroy
+    cache_has_many :purchases, embed: true
   
     def image_count
       Rails.cache.fetch([cache_key, __method__]) do
